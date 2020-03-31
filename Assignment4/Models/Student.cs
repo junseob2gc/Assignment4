@@ -7,6 +7,7 @@ namespace FTPApp.Models
     public class Student
     {
         public static string HeaderRow = $"{nameof(Student.StudentId)},{nameof(Student.FirstName)},{nameof(Student.LastName)},{nameof(Student.DateOfBirth)},{nameof(Student.ImageData)}";
+        public string UID { get { return Guid.NewGuid().ToString(); } }
         public string StudentId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -121,7 +122,7 @@ namespace FTPApp.Models
 
         public override string ToString()
         {
-            string result = $"{StudentId} {FirstName} {LastName}";
+            string result = $"{StudentId} {FirstName} {LastName} { (IsMe == 1 ? "***It is me.***" : "")}";
             return result;
         }
     }

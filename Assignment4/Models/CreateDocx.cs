@@ -19,6 +19,7 @@ namespace FTPApp.Models
             {
                 // Add a main document part. 
                 MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+
                 // Create the document structure and add some text.
                 mainPart.Document = new Document();
                 Body body = mainPart.Document.AppendChild(new Body());
@@ -28,9 +29,19 @@ namespace FTPApp.Models
                     Run run = para.AppendChild(new Run());
                     para = new Paragraph(new Run(new Break() { Type = BreakValues.Page }));
                     run.AppendChild(new Text($"Hello, my name is {student.FirstName} {student.LastName}."));
+                    if (student.IsMe == 1)
+                    {
+                        string myimagePath = $"{Constants.Locations.ImagesFolder}\\{Constants.Locations.MyImageFileName}";
+                        ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+
+                        using (FileStream stream = new FileStream(myimagePath, FileMode.Open))
+                        {
+                            imagePart.FeedData(stream);
+                        }
+                        AddImageToBody(wordDocument, mainPart.GetIdOfPart(imagePart));
+                    }
                     mainPart.Document.Body.InsertAfter(para, mainPart.Document.Body.LastChild);
                 }
-                
                 
             }
         }
