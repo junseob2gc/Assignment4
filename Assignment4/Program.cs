@@ -40,7 +40,6 @@ namespace FTPApp
                     {
                         student.FromCSV(data[1]);
                     }
-                    //Console.WriteLine(student.Age);
                 }
 
                 if (myrecord.StudentId == student.StudentId)
@@ -66,19 +65,16 @@ namespace FTPApp
                 students.Add(student);
             }
 
-
             // insert directories of the FTP server into info.docx file with each directory on one page
             string docxName = $"{Constants.Locations.DataFolder}\\{Constants.Locations.InfoDOCXFileName}";
             CreateDocx.CreateWordprocessingDocument(docxName, students);
 
 
             // add myimage.jpg into the docx
-            CreateDocx.InsertAPicture(docxName, myimagePath);
+            //CreateDocx.InsertAPicture(docxName, myimagePath);
 
             // upload info.docx to the FTP site
             FTP.UploadFile(docxName, $"{myrecord.FullPathUrl}/{Constants.Locations.InfoDOCXFileName}");
-
-
 
             // create sheet 1, simple text on the A2
             string xlsxPath = $"{Constants.Locations.DataFolder}\\{Constants.Locations.InfoXLSXFileName}";
